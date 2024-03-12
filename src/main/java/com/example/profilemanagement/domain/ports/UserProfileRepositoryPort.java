@@ -2,9 +2,8 @@ package com.example.profilemanagement.domain.ports;
 
 import com.example.profilemanagement.domain.entities.UserProfileEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
 import java.util.Optional;
+import java.util.List;
 
 public interface UserProfileRepositoryPort extends JpaRepository<UserProfileEntity, Long> {
 

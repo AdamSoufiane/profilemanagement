@@ -1,7 +1,12 @@
 package com.example.profilemanagement.application.dtos;
 
 import java.io.Serializable;
+import java.util.Objects;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class UserProfileResponse implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -16,46 +21,17 @@ public class UserProfileResponse implements Serializable {
         this.email = email;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         UserProfileResponse that = (UserProfileResponse) obj;
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        return email != null ? email.equals(that.email) : that.email == null;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(email, that.email);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        return result;
+        return Objects.hash(id, name, email);
     }
 
     @Override

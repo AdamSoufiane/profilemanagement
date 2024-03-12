@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import com.example.profilemanagement.application.validation.ValidPassword;
-import org.springframework.lang.Nullable;
 import lombok.Data;
+import org.springframework.lang.Nullable;
+import com.example.profilemanagement.application.validation.ValidPassword;
 
 @Data
 public class UserProfileRequest {
@@ -39,19 +39,10 @@ public class UserProfileRequest {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", version=" + version +
                 '}';
     }
-}
-
-// TODO: Extract the following ValidPassword annotation to a separate file in the package 'com.example.profilemanagement.application.validation'
-@interface ValidPassword {
-
-    String message() default "Invalid password format";
-
-    Class<?>[] groups() default {};
-
-    Class<? extends Payload>[] payload() default {};
 }

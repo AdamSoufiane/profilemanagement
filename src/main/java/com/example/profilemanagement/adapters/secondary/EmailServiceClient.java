@@ -1,20 +1,19 @@
 package com.example.profilemanagement.adapters.secondary;
 
 import com.example.profilemanagement.infrastructure.exceptions.EmailServiceClientException;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-interface EmailService {
-    void sendEmail(String toAddress, String subject, String body) throws EmailServiceClientException;
-    void sendPasswordResetLink(String toAddress, String token) throws EmailServiceClientException;
-}
-
-@Slf4j
 public class EmailServiceClient implements EmailService {
+
+    private static final Logger log = LoggerFactory.getLogger(EmailServiceClient.class);
+
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@(.+)$";
 
     @Override
     public void sendEmail(String toAddress, String subject, String body) throws EmailServiceClientException {
-        if (toAddress == null || toAddress.isEmpty()) {
-            throw new IllegalArgumentException("To address cannot be null or empty");
+        if (toAddress == null || toAddress.isEmpty() || !toAddress.matches(EMAIL_REGEX)) {
+            throw new IllegalArgumentException("To address is invalid");
         }
         if (subject == null || subject.isEmpty()) {
             throw new IllegalArgumentException("Subject cannot be null or empty");
@@ -34,8 +33,8 @@ public class EmailServiceClient implements EmailService {
 
     @Override
     public void sendPasswordResetLink(String toAddress, String token) throws EmailServiceClientException {
-        if (toAddress == null || toAddress.isEmpty()) {
-            throw new IllegalArgumentException("To address cannot be null or empty");
+        if (toAddress == null || toAddress.isEmpty() || !toAddress.matches(EMAIL_REGEX)) {
+            throw new IllegalArgumentException("To address is invalid");
         }
         if (token == null || token.isEmpty()) {
             throw new IllegalArgumentException("Token cannot be null or empty");

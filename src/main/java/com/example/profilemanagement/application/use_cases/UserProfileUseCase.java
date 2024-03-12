@@ -39,10 +39,10 @@ public class UserProfileUseCase {
 
         try {
             UserProfileResponse response = profileManagementPort.updateUserProfile(userProfileRequest);
-            logger.info("User profile updated successfully for user: {}", userProfileRequest.getUserId());
+            logger.info("User profile updated successfully for user: {}", userProfileRequest.getEmail());
             return response;
         } catch (UserProfileEntityException e) {
-            logger.error("Failed to update user profile for user: {}", userProfileRequest.getUserId(), e);
+            logger.error("Failed to update user profile for user: {}", userProfileRequest.getEmail(), e);
             throw new UserProfileUseCaseException("Failed to update user profile", e);
         }
     }

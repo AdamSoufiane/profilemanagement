@@ -53,37 +53,4 @@ public class PasswordResetService {
         user.setResetToken(null);
         userRepositoryPort.save(user);
     }
-
-    // Additional methods related to password reset can be added here
 }
-
-// TODO: Define the findByResetToken method in the UserProfileRepositoryPort interface
-// package com.example.profilemanagement.domain.ports;
-// import java.util.Optional;
-// import com.example.profilemanagement.domain.entities.UserProfileEntity;
-// public interface UserProfileRepositoryPort {
-//     Optional<UserProfileEntity> findByEmail(String email);
-//     Optional<UserProfileEntity> findById(Long id);
-//     UserProfileEntity save(UserProfileEntity userProfileEntity);
-//     void deleteById(Long id);
-//     List<UserProfileEntity> findAll();
-//     Optional<UserProfileEntity> findByResetToken(String resetToken);
-// }
-
-// TODO: Ensure the UserProfileEntity class has setResetToken and setPassword methods
-// package com.example.profilemanagement.domain.entities;
-// import lombok.Data;
-//
-// @Data
-// public class UserProfileEntity {
-//     // Other fields...
-//     private String resetToken;
-//     private String password;
-//     // Other methods...
-//     public void setResetToken(String resetToken) {
-//         this.resetToken = resetToken;
-//     }
-//     public void setPassword(String password) {
-//         this.password = password;
-//     }
-// }

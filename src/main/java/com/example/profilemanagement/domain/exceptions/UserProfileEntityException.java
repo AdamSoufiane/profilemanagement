@@ -1,6 +1,8 @@
 package com.example.profilemanagement.domain.exceptions;
 
-public class UserProfileEntityException extends RuntimeException {
+import java.io.Serializable;
+
+public class UserProfileEntityException extends RuntimeException implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

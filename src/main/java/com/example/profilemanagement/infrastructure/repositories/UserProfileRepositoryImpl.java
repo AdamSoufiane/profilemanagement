@@ -4,7 +4,6 @@ import com.example.profilemanagement.domain.entities.UserProfileEntity;
 import com.example.profilemanagement.domain.ports.UserProfileRepositoryPort;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
@@ -13,13 +12,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@Transactional
 public class UserProfileRepositoryImpl implements UserProfileRepositoryPort {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
+    @Transactional
     public UserProfileEntity save(UserProfileEntity userProfileEntity) {
         try {
             if (userProfileEntity.getId() == null) {
@@ -28,18 +27,20 @@ public class UserProfileRepositoryImpl implements UserProfileRepositoryPort {
                 entityManager.merge(userProfileEntity);
             }
             return userProfileEntity;
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenceException("Failed to save user profile entity", e);
         }
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<UserProfileEntity> findById(Long id) {
         UserProfileEntity userProfileEntity = entityManager.find(UserProfileEntity.class, id);
         return Optional.ofNullable(userProfileEntity);
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         UserProfileEntity userProfileEntity = entityManager.find(UserProfileEntity.class, id);
         if (userProfileEntity != null) {
@@ -50,11 +51,25 @@ public class UserProfileRepositoryImpl implements UserProfileRepositoryPort {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<UserProfileEntity> findAll() {
-        try {
-            return entityManager.createQuery("SELECT u FROM UserProfileEntity u", UserProfileEntity.class).getResultList();
-        } catch (PersistenceException e) {
-            throw new PersistenceException("Error occurred while retrieving all user profiles", e);
-        }
+        return entityManager.createQuery("SELECT u FROM UserProfileEntity u", UserProfileEntity.class).getResultList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<UserProfileEntity> findByEmail(String email) {
+        List<UserProfileEntity> users = entityManager.createQuery("SELECT u FROM UserProfileEntity u WHERE u.email = :email", UserProfileEntity.class)
+                .setParameter("email", email)
+                .getResultList();
+        return users.stream().findFirst();
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 }
