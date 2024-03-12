@@ -1,0 +1,1 @@
+The ProfileManagement shred is designed to provide users with the capabilities to manage their profiles and reset their passwords in a secure and efficient manner. The shred is built following Hexagonal Architecture principles, ensuring separation of concerns and adaptability. It consists of a domai
